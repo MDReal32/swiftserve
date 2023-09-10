@@ -13,7 +13,12 @@ bun add swiftserve
 ```ts
 import "swiftserve";
 
-const app = Bun.create(/* options here or default */);
+const app = Bun.create(/* options can be here. Practically same options with Bun.serve */);
+
+// Define a middleware function that logs the request method and URL
+app.use((req, res) => {
+   console.log(`Received ${req.method} request for ${req.url}`);
+});
 
 // Define a route for the "/hello-world" endpoint that returns "Hello World"
 app.get('/hello-world', async (req, res) => {
@@ -27,6 +32,7 @@ app.all('*', async (req, res) => {
 
 // Start the server
 app.serve();
+console.log("Http server run on http://localhost:3000");
 ```
 
 ## Running the Application
