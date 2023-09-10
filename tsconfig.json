@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "types": ["bun-types"],
+    "target": "ESNext",
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "declaration": true
+  }
+}

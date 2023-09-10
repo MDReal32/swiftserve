@@ -1,0 +1,30 @@
+{
+  "name": "swiftserve",
+  "version": "1.0.0",
+  "description": "A http serve app looks like express",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./build/index.js",
+      "types": "./build/index.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "bun scripts/build.ts",
+    "prepublishOnly": "bun run build",
+    "publish": "bumpp && npm publish"
+  },
+  "files": [
+    "build/**",
+    "package.json"
+  ],
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.2.0",
+    "bumpp": "9.2.0",
+    "bun-plugin-dts": "0.1.0",
+    "bun-types": "1.0.1",
+    "prettier": "3.0.3"
+  }
+}
