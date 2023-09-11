@@ -1,6 +1,4 @@
-import { Method } from "bun";
-
-import { FetchParamsFromPath } from "../types";
+import { FetchParamsFromPath, Method } from "../types";
 
 export class SwiftRequest<
   TPath extends string = string,

@@ -1,16 +1,21 @@
-/// <reference path="./bun.d.ts" />
+import { Server } from "bun";
+import "bun";
+
+import { SwiftRequest } from "./extends/request";
+import { SwiftResponse } from "./extends/response";
 import {
+  CreateFn,
   HttpServeOptions,
   Method,
   Middleware,
   MiddlewareFn,
   Route,
-  Server,
   BunServerInstance as _BunServerInstance
-} from "bun";
+} from "./types";
 
-import { SwiftRequest } from "./extends/request";
-import { SwiftResponse } from "./extends/response";
+declare module "bun" {
+  export let create: CreateFn;
+}
 
 class BunServerInstance implements _BunServerInstance {
   readonly _routesMap: Map<string, Route<string, Method>>;
