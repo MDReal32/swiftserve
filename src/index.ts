@@ -189,7 +189,7 @@ class BunServerInstance implements _BunServerInstance {
 }
 
 const __serverInstance__ = Symbol("serverInstance");
-Bun.create = options => {
+export const swiftserve: CreateFn = options => {
   options.singleton = options.singleton === undefined ? true : options.singleton;
   if (!options.singleton) {
     return new BunServerInstance(options);
@@ -197,3 +197,7 @@ Bun.create = options => {
 
   return Bun[__serverInstance__] || (Bun[__serverInstance__] = new BunServerInstance(options));
 };
+Bun.create = swiftserve;
+
+export { SwiftRequest, SwiftResponse };
+export default swiftserve;
