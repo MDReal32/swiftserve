@@ -50,7 +50,9 @@ export class SwiftResponse {
     return this.send(stream);
   }
 
-  send(data: ReadableStream | BlobPart | BlobPart[] | FormData | URLSearchParams | null): Response {
+  send(
+    data?: ReadableStream | BlobPart | BlobPart[] | FormData | URLSearchParams | null
+  ): Response {
     return new Response(data, {
       status: this._status,
       headers: this._headers,
