@@ -26,10 +26,10 @@ export class SwiftResponse {
   }
 
   header(key: string): string | undefined;
-  header(key: string, value: string): this;
-  header(key: string, value?: string) {
+  header(key: string, value: string | number | boolean): this;
+  header(key: string, value?: string | number | boolean) {
     if (value === undefined) return this._headers[key];
-    this._headers[key] = value;
+    this._headers[key] = value.toString();
     return this;
   }
 
