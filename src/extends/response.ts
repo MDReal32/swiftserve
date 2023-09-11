@@ -32,38 +32,26 @@ export class SwiftResponse {
 
   html(html: string): Response {
     this.header("Content-Type", "text/html");
-
-    return new Response(html, {
-      status: this._status,
-      headers: this._headers,
-      statusText: this._statusText
-    });
+    return this.send(html);
   }
 
   text(text: string): Response {
     this.header("Content-Type", "text/plain");
-
-    return new Response(text, {
-      status: this._status,
-      headers: this._headers,
-      statusText: this._statusText
-    });
+    return this.send(text);
   }
 
   json<TData>(data: TData): Response {
     this.header("Content-Type", "application/json");
-
-    return Response.json(data, {
-      status: this._status,
-      headers: this._headers,
-      statusText: this._statusText
-    });
+    return this.send(JSON.stringify(data));
   }
 
   stream(stream: ReadableStream): Response {
     this.header("Content-Type", "application/octet-stream");
+    return this.send(stream);
+  }
 
-    return new Response(stream, {
+  send(data: ReadableStream | BlobPart | BlobPart[] | FormData | URLSearchParams | null): Response {
+    return new Response(data, {
       status: this._status,
       headers: this._headers,
       statusText: this._statusText
