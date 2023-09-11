@@ -25,7 +25,10 @@ export class SwiftResponse {
     return this;
   }
 
-  header(key: string, value: string): this {
+  header(key: string): string | undefined;
+  header(key: string, value: string): this;
+  header(key: string, value?: string) {
+    if (value === undefined) return this._headers[key];
     this._headers[key] = value;
     return this;
   }
