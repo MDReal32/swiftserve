@@ -20,6 +20,7 @@ declare module "bun" {
 class BunServerInstance implements _BunServerInstance {
   readonly _routesMap: Map<string, Route<string, Method>>;
   readonly _serverOptions: HttpServeOptions;
+  private server: Server | undefined;
 
   constructor(options: HttpServeOptions) {
     this._routesMap = new Map();
@@ -89,7 +90,7 @@ class BunServerInstance implements _BunServerInstance {
   serve(): Server {
     const self = this;
 
-    return Bun.serve({
+    this.server = Bun.serve({
       ...this._serverOptions,
       async fetch(req: Request, server: Server): Promise<Response> {
         const url = new URL(req.url);
@@ -142,6 +143,16 @@ class BunServerInstance implements _BunServerInstance {
         return self.notFound(url);
       }
     });
+
+    return this.server;
+  }
+
+  close(hard = false) {
+    if (!this.server) {
+      return;
+    }
+
+    this.server.stop(hard);
   }
 
   private notFound(url: URL) {
