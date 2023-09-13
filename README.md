@@ -30,6 +30,12 @@ app.all('*', async (req, res) => {
   return res.json({ message: 'Hello World' });
 });
 
+// Use cors if needed
+app.use(swiftserve.cors());
+
+// use static files if needed
+app.use(swiftserve.static('/path/to/static/files'));
+
 // Start the server
 app.serve();
 console.log("Http server run on http://localhost:3000");
