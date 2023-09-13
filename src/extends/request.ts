@@ -7,6 +7,7 @@ export class SwiftRequest<
   TBody = unknown,
   THeaders extends Record<string, string> = Record<string, string>
 > {
+  readonly url: string;
   readonly pathname: string;
   readonly username: string;
   readonly password: string;
@@ -25,6 +26,7 @@ export class SwiftRequest<
     readonly headers?: THeaders
   ) {
     const url = new URL(path);
+    this.url = url.href;
     this.pathname = url.pathname;
     this.username = url.username;
     this.password = url.password;

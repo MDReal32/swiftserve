@@ -1,8 +1,8 @@
-import { ServeOptions, TLSServeOptions, UnixServeOptions, UnixTLSServeOptions } from "bun";
+import { ServeOptions, Server, TLSServeOptions, UnixServeOptions, UnixTLSServeOptions } from "bun";
 
 export type HttpServeOptions = (
   | Omit<ServeOptions, "fetch">
   | Omit<TLSServeOptions, "fetch">
   | Omit<UnixServeOptions, "fetch">
   | Omit<UnixTLSServeOptions, "fetch">
-) & { singleton?: boolean };
+) & { singleton?: boolean; callback?: (server: Server) => void };

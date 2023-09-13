@@ -1,35 +1,57 @@
 import { Server } from "bun";
-import "bun";
+import { EventEmitter } from "events";
 
-import { SwiftRequest } from "./extends/request";
-import { SwiftResponse } from "./extends/response";
+import { SwiftRequest, SwiftResponse } from "../extends";
 import {
-  CreateFn,
+  ConvertValuesToArray,
   HttpServeOptions,
   Method,
   Middleware,
   MiddlewareFn,
-  Route,
-  BunServerInstance as _BunServerInstance
-} from "./types";
+  Route
+} from "../types";
 
-declare module "bun" {
-  export let create: CreateFn;
-}
+interface Events {}
 
-class BunServerInstance implements _BunServerInstance {
+export class SwiftServeInstance<Options extends object> extends EventEmitter<
+  ConvertValuesToArray<Events>
+> {
   readonly _routesMap: Map<string, Route<string, Method>>;
-  readonly _serverOptions: HttpServeOptions;
+  readonly _serverOptions: Options & HttpServeOptions;
   private server: Server | undefined;
 
   constructor(options: HttpServeOptions) {
+    super();
     this._routesMap = new Map();
-    this._serverOptions = { port: 3000 };
+    this._serverOptions = { port: 3000 } as Options & HttpServeOptions;
     Object.assign(this._serverOptions, options || {});
   }
 
   get routes() {
     return this._routesMap;
+  }
+
+  setOptions(options: Partial<Options>): this;
+  setOptions(options: Partial<HttpServeOptions>): this;
+  setOptions(options: Partial<object>): this;
+  setOptions(options: Partial<Options | HttpServeOptions>): this {
+    Object.assign(this._serverOptions, options);
+    return this;
+  }
+
+  setOption<T extends keyof Options>(key: T, value: Options[T]): this;
+  setOption<T extends keyof HttpServeOptions>(key: T, value: HttpServeOptions[T]): this;
+  setOption(key: string, value: any): this;
+  setOption(key: string, value: any): this {
+    this._serverOptions[key] = value;
+    return this;
+  }
+
+  getOption<T extends keyof Options>(key: T): Options[T];
+  getOption<T extends keyof HttpServeOptions>(key: T): HttpServeOptions[T];
+  getOption(key: string): any;
+  getOption(key: string): any {
+    return this._serverOptions[key];
   }
 
   get<TPath extends string>(path: TPath, ...middlewares: MiddlewareFn<TPath>[]) {
@@ -144,6 +166,8 @@ class BunServerInstance implements _BunServerInstance {
       }
     });
 
+    this._serverOptions.callback?.(this.server);
+
     return this.server;
   }
 
@@ -198,17 +222,3 @@ class BunServerInstance implements _BunServerInstance {
     this._routesMap.set(regexString, route as unknown as Route<string, Method>);
   }
 }
-
-const __serverInstance__ = Symbol("serverInstance");
-export const swiftserve: CreateFn = options => {
-  options.singleton = options.singleton === undefined ? true : options.singleton;
-  if (!options.singleton) {
-    return new BunServerInstance(options);
-  }
-
-  return Bun[__serverInstance__] || (Bun[__serverInstance__] = new BunServerInstance(options));
-};
-Bun.create = swiftserve;
-
-export { SwiftRequest, SwiftResponse };
-export default swiftserve;
