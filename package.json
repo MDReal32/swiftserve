@@ -1,6 +1,6 @@
 {
   "name": "swiftserve",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "A http serve app looks like express",
   "main": "build/main.js",
   "types": "build/main.d.ts",
