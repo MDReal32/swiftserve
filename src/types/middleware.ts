@@ -1,5 +1,4 @@
-import { SwiftRequest } from "../extends/request";
-import { SwiftResponse } from "../extends/response";
+import { SwiftRequest, SwiftResponse } from "../extends";
 import { FetchParamsFromPath } from "./fetch-params-from-path";
 import { Method } from "./method";
 import { Promisable } from "./promisable";
