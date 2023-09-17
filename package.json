@@ -4,13 +4,6 @@
   "description": "A http serve app looks like express",
   "main": "build/main.js",
   "types": "build/main.d.ts",
-  "exports": {
-    ".": {
-      "import": "./build/index.js",
-      "types": "./build/index.d.ts"
-    },
-    "./package.json": "./package.json"
-  },
   "scripts": {
     "build": "bun scripts/build.ts",
     "postbuild": "bunx tsc --project tsconfig.build.json",
