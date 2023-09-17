@@ -40,4 +40,10 @@ export class SwiftRequest<
       Object.entries(headers || {}).map(([key, value]) => [key.toLowerCase(), value])
     ) as THeaders;
   }
+
+  header(key: string): string | undefined;
+  header<K extends keyof THeaders>(key: K): THeaders[K] | undefined;
+  header(key: string): string | undefined | this {
+    return this.headers[key.toLowerCase()];
+  }
 }
