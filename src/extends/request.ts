@@ -1,11 +1,11 @@
-import { FetchParamsFromPath, Method } from "../types";
+import { BaseHeaders, FetchParamsFromPath, Method } from "../types";
 
 export class SwiftRequest<
   TPath extends string = string,
   TParams extends Record<string, string> = FetchParamsFromPath<TPath>,
   TQuery extends Record<string, string> = Record<string, string>,
   TBody = unknown,
-  THeaders extends Record<string, string> = Record<string, string>
+  THeaders extends BaseHeaders = BaseHeaders
 > {
   readonly url: string;
   readonly pathname: string;
