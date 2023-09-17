@@ -1,4 +1,5 @@
 export * from "./base-headers";
+export * from "./body-parser-json-options";
 export * from "./convert-values-to-array";
 export * from "./cors-fn";
 export * from "./cors-options";
