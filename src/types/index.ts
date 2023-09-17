@@ -14,3 +14,4 @@ export * from "./route";
 export * from "./serve-static-fn";
 export * from "./serve-static-options";
 export * from "./streamable-handler-response";
+export * from "./urlencoded-fn";
