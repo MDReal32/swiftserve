@@ -20,10 +20,10 @@ export class SwiftRequest<
   constructor(
     readonly path: TPath,
     readonly method: Method,
-    readonly params?: TParams,
-    readonly query?: TQuery,
-    readonly body?: TBody,
-    readonly headers?: THeaders
+    public params?: TParams,
+    public query?: TQuery,
+    public body?: TBody,
+    public headers?: THeaders
   ) {
     const url = new URL(path);
     this.url = url.href;
