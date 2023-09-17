@@ -35,5 +35,9 @@ export class SwiftRequest<
     this.port = url.port;
     this.origin = url.origin;
     this.protocol = url.protocol;
+
+    this.headers = Object.fromEntries(
+      Object.entries(headers || {}).map(([key, value]) => [key.toLowerCase(), value])
+    ) as THeaders;
   }
 }
