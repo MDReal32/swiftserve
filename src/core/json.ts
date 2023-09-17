@@ -1,6 +1,6 @@
 import { SwiftRequest, SwiftResponse } from "../extends";
 import { BodyParserJsonOptions } from "../types";
-import { limitParser } from "../utils/limit-parser";
+import { limitParser } from "../utils";
 
 export const json = (options?: BodyParserJsonOptions) => {
   const { limit = "1mb", strict = true, reviver, type, verify } = options || {};
