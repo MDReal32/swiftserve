@@ -17,6 +17,7 @@ export class SwiftServeInstance<Options extends object> extends EventEmitter<
   ConvertValuesToArray<Events>
 > {
   readonly _routesMap: Map<string, Route<string, Method>>;
+  readonly _middlewares = new Set<MiddlewareFn>();
   readonly _serverOptions: Options & HttpServeOptions;
   private server: Server | undefined;
 
@@ -29,6 +30,10 @@ export class SwiftServeInstance<Options extends object> extends EventEmitter<
 
   get routes() {
     return this._routesMap;
+  }
+
+  get middlewares() {
+    return this._middlewares;
   }
 
   setOptions(options: Partial<Options>): this;
@@ -104,8 +109,19 @@ export class SwiftServeInstance<Options extends object> extends EventEmitter<
     return this;
   }
 
-  use(...middlewares: MiddlewareFn<"*">[]) {
-    this.addRoute("*", "*", middlewares);
+  use(middlewareOrPath: string | MiddlewareFn, ...middlewares: MiddlewareFn[]) {
+    const route = typeof middlewareOrPath === "string" ? middlewareOrPath : "*";
+    typeof middlewareOrPath === "function" && middlewares.unshift(middlewareOrPath);
+
+    const addableMiddlewares = middlewares
+      .filter(middleware => typeof middleware === "function" && !this._middlewares.has(middleware))
+      .map(middleware => {
+        this._middlewares.add(middleware);
+        return middleware;
+      });
+
+    this.addRoute(route, "*", addableMiddlewares);
+
     return this;
   }
 
