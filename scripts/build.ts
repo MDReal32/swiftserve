@@ -1,8 +1,8 @@
 await Bun.build({
   entrypoints: ["src/main.ts"],
   outdir: "build",
-  minify: true,
+  minify: false,
   target: "bun",
-  sourcemap: "external",
-  plugins: []
+  external: ["qs", "@total-typescript/ts-reset"],
+  sourcemap: "external"
 });
