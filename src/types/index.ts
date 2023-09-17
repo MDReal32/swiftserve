@@ -7,6 +7,7 @@ export * from "./cors-options";
 export * from "./create-fn";
 export * from "./fetch-params-from-path";
 export * from "./http-server-options";
+export * from "./json-fn";
 export * from "./method";
 export * from "./middleware";
 export * from "./route";
