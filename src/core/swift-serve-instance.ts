@@ -143,7 +143,7 @@ export class SwiftServeInstance<Options extends object> extends EventEmitter<
         }
 
         const middlewareFns = foundMiddlewares.map(middleware => middleware.fn);
-        const body = req.method === "GET" ? undefined : await req.json();
+        const body = req.method === "GET" ? undefined : await req.text();
 
         for (const middleware of middlewareFns) {
           const result = await middleware(
