@@ -16,7 +16,7 @@
   "trailingComma": "none",
   "useTabs": false,
   "vueIndentScriptAndStyle": false,
-  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-packagejson"],
   "importOrder": ["^node:(.*)$", "^([^.@]*)$", "^@(.*)/(.*)$", "^[./]"],
   "importOrderParserPlugins": ["typescript", "decorators-legacy"],
   "importOrderSeparation": true,
