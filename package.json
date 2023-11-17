@@ -4,15 +4,16 @@
   "description": "A http serve app looks like express",
   "main": "build/main.js",
   "types": "build/main.d.ts",
+  "files": [
+    "build/**",
+    "bun.d.ts",
+    "package.json"
+  ],
   "scripts": {
     "build": "bun scripts/build.ts",
     "postbuild": "bunx tsc --project tsconfig.build.json",
     "prepublishOnly": "bun run build && bumpp"
   },
-  "files": [
-    "build/**",
-    "package.json"
-  ],
   "dependencies": {
     "@total-typescript/ts-reset": "0.5.1",
     "qs": "6.11.2"
