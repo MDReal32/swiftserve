@@ -1,7 +1,7 @@
 {
   "name": "swiftserve",
   "version": "1.2.0",
-  "description": "A http serve app looks like express",
+  "description": "An express-like http server for bun",
   "keywords": [
     "http",
     "serve",
