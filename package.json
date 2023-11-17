@@ -22,6 +22,11 @@
     "url": "https://github.com/MDReal32/swiftserve.git"
   },
   "license": "MIT",
+  "author": {
+    "name": "MDReal",
+    "email": "mdrealiyev00@gmail.com",
+    "url": "https://github.com"
+  },
   "main": "build/main.js",
   "types": "build/main.d.ts",
   "files": [
